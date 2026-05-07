@@ -538,21 +538,38 @@ https://templatemo.com/tm-558-klassy-cafe
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
     <script>
+      function isLoggedIn() {
+        return localStorage.getItem('kentakaiken_logged_in') === 'true';
+      }
+  
+      var loginLink = document.querySelector('.main-white-button a');
+  
+      if (isLoggedIn()) {
+        loginLink.textContent = 'Keluar';
+        loginLink.href = '#';
+        loginLink.onclick = function(e) {
+          e.preventDefault();
+          localStorage.removeItem('kentakaiken_logged_in');
+          localStorage.removeItem('kentakaiken_email');
+          window.location.href = 'logreg/index.html';
+        };
+      } else {
+        loginLink.textContent = 'Masuk';
+        loginLink.href = 'logreg/index.html';
+      }
 
-        $(function() {
-            var selectedClass = "";
-            $("p").click(function(){
-            selectedClass = $(this).attr("data-rel");
-            $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("."+selectedClass).fadeOut();
-            setTimeout(function() {
-              $("."+selectedClass).fadeIn();
-              $("#portfolio").fadeTo(50, 1);
-            }, 500);
-                
-            });
-        });
-
+      $(function() {
+          var selectedClass = "";
+          $("p").click(function(){
+          selectedClass = $(this).attr("data-rel");
+          $("#portfolio").fadeTo(50, 0.1);
+              $("#portfolio div").not("."+selectedClass).fadeOut();
+          setTimeout(function() {
+            $("."+selectedClass).fadeIn();
+            $("#portfolio").fadeTo(50, 1);
+          }, 500);
+          });
+      });
     </script>
   </body>
 </html>
