@@ -310,7 +310,6 @@
       <span class="logo-text">Kentakaiken</span>
     </div>
 
-    <!-- Logged in state -->
     <div id="loggedInView" class="hidden">
       <h1>Anda sudah masuk</h1>
       <div class="logged-in-info">
@@ -326,7 +325,6 @@
       <p class="signup-text"><a href="#" id="goHomeLink">Kunjungi beranda →</a></p>
     </div>
 
-    <!-- Logged out state -->
     <div id="loggedOutView">
       <h1>Selamat datang kembali!</h1>
       <p class="subtitle">Masuk ke akun anda untuk melanjutkan</p>
@@ -364,10 +362,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // =============================================
-    // CHANGE THIS to your actual homepage URL
-    // =============================================
-    const HOMEPAGE_URL =index.html;
+    const HOMEPAGE_URL = '../index.html';
 
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -396,31 +391,23 @@
       document.getElementById('loggedOutView').classList.remove('hidden');
     }
 
-    // Check state on page load
     if (isLoggedIn()) {
       showLoggedInState();
     } else {
       showLoggedOutState();
     }
 
-    // Login form submit
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
-
-      // Save login state
       localStorage.setItem('kentakaiken_logged_in', 'true');
       localStorage.setItem('kentakaiken_email', email);
-
       showToast('Berhasil masuk! Mengalihkan...');
-
-      // Redirect after a short delay so the user sees the toast
       setTimeout(function() {
         window.location.href = HOMEPAGE_URL;
       }, 1000);
     });
 
-    // Logout button
     document.getElementById('logoutBtn').addEventListener('click', function() {
       localStorage.removeItem('kentakaiken_logged_in');
       localStorage.removeItem('kentakaiken_email');
