@@ -47,6 +47,7 @@ figure, header, nav, section, article, aside, footer, figcaption {
 .video-container {
     width: 100%;
     aspect-ratio: 16 / 9;
+    margin-top: 40px;
 }
 
 .video-container iframe {
