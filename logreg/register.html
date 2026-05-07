@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kentakaiken - Daftar</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #f5f5f4;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .register-card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #72A38B;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .logo-text {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #737373;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #525252;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      background: #fafaf9;
+      border: 1px solid #d4d4d4;
+      border-radius: 8px;
+      color: #1a1a1a;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #72A38B;
+      box-shadow: 0 0 0 3px rgba(114, 163, 139, 0.15);
+    }
+
+    input::placeholder {
+      color: #a3a3a3;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 10px;
+      background: #72A38B;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 6px;
+    }
+
+    .register-btn:hover {
+      background: #5c8a72;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e5e5e5;
+    }
+
+    .divider span {
+      font-size: 12px;
+      color: #a3a3a3;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .login-text {
+      text-align: center;
+      font-size: 13px;
+      color: #737373;
+    }
+
+    .login-text a {
+      color: #72A38B;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .login-text a:hover {
+      color: #5c8a72;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a;
+      color: #ffffff;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-card">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="logo-text">Kentakaiken</span>
+    </div>
+
+    <h1>Buat akun baru</h1>
+    <p class="subtitle">Isi data di bawah untuk memulai</p>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="namakamu" required>
+        <p class="error-msg" id="usernameError">Username sudah digunakan</p>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="anda@contoh.com" required>
+        <p class="error-msg" id="emailError">Email sudah terdaftar</p>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Konfirmasi Password</label>
+        <input type="password" id="confirmPassword" placeholder="••••••••" required>
+        <p class="error-msg" id="passwordError">Password tidak cocok</p>
+      </div>
+
+      <button type="submit" class="register-btn">Daftar</button>
+    </form>
+
+    <div class="divider">
+      <span>atau</span>
+    </div>
+
+    <p class="login-text">Sudah punya akun? <a href="index.html">Masuk di sini</a></p>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('kentakaiken_users') || '[]');
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('kentakaiken_users', JSON.stringify(users));
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Reset errors
+      document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+      // Check password match
+      if (password !== confirmPassword) {
+        document.getElementById('passwordError').style.display = 'block';
+        return;
+      }
+
+      // Check if email or username already exists
+      const users = getUsers();
+      const emailExists = users.find(u => u.email === email);
+      const usernameExists = users.find(u => u.username === username);
+
+      if (emailExists) {
+        document.getElementById('emailError').style.display = 'block';
+        return;
+      }
+
+      if (usernameExists) {
+        document.getElementById('usernameError').style.display = 'block';
+        return;
+      }
+
+      // Save new user
+      users.push({ username, email, password });
+      saveUsers(users);
+
+      showToast('Akun berhasil dibuat! Mengalihkan ke login...');
+
+      setTimeout(function() {
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
