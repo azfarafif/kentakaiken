@@ -1,1 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kentakaiken - Login</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #f5f5f4;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #72A38B;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .logo-text {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #737373;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #525252;
+      margin-bottom: 6px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      background: #fafaf9;
+      border: 1px solid #d4d4d4;
+      border-radius: 8px;
+      color: #1a1a1a;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #72A38B;
+      box-shadow: 0 0 0 3px rgba(114, 163, 139, 0.15);
+    }
+
+    input::placeholder {
+      color: #a3a3a3;
+    }
+
+    .options-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #fafaf9;
+      border: 1px solid #d4d4d4;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .remember-me input[type="checkbox"]:checked {
+      background: #72A38B;
+      border-color: #72A38B;
+    }
+
+    .remember-me input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4.5px;
+      top: 1.5px;
+      width: 5px;
+      height: 9px;
+      border: solid #ffffff;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+
+    .remember-me span {
+      font-size: 13px;
+      color: #737373;
+    }
+
+    .forgot-link {
+      font-size: 13px;
+      color: #72A38B;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover {
+      color: #5c8a72;
+    }
+
+    .login-btn,
+    .logout-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .login-btn {
+      background: #72A38B;
+      color: #ffffff;
+    }
+
+    .login-btn:hover {
+      background: #5c8a72;
+    }
+
+    .logout-btn {
+      background: #ffffff;
+      color: #72A38B;
+      border: 1px solid #72A38B;
+    }
+
+    .logout-btn:hover {
+      background: #f0f7f3;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e5e5e5;
+    }
+
+    .divider span {
+      font-size: 12px;
+      color: #a3a3a3;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .signup-text {
+      text-align: center;
+      font-size: 13px;
+      color: #737373;
+    }
+
+    .signup-text a {
+      color: #72A38B;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .signup-text a:hover {
+      color: #5c8a72;
+    }
+
+    .logged-in-info {
+      text-align: center;
+      padding: 8px 0 20px;
+    }
+
+    .logged-in-info .check-circle {
+      width: 48px;
+      height: 48px;
+      background: #72A38B;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .logged-in-info .check-circle svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .logged-in-info p {
+      font-size: 14px;
+      color: #737373;
+      line-height: 1.5;
+    }
+
+    .logged-in-info p strong {
+      color: #1a1a1a;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a;
+      color: #ffffff;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="logo-text">Kentakaiken</span>
+    </div>
+
+    <div id="loggedInView" class="hidden">
+      <h1>Anda sudah masuk</h1>
+      <div class="logged-in-info">
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <p>Sedang masuk sebagai <strong id="loggedInUser"></strong></p>
+      </div>
+      <button id="logoutBtn" class="logout-btn" style="margin-bottom: 24px;">Keluar</button>
+      <div class="divider"><span>atau</span></div>
+      <p class="signup-text"><a href="#" id="goHomeLink">Kunjungi beranda →</a></p>
+    </div>
+
+    <div id="loggedOutView">
+      <h1>Selamat datang kembali!</h1>
+      <p class="subtitle">Masuk ke akun anda untuk melanjutkan</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="anda@contoh.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+          <p class="error-msg" id="loginError">Email atau password salah</p>
+        </div>
+
+        <div class="options-row">
+          <label class="remember-me">
+            <input type="checkbox">
+            <span>Ingat saya</span>
+          </label>
+          <a href="#" class="forgot-link" onclick="showToast('Cek inbox anda untuk link reset password'); return false;">Lupa password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Masuk</button>
+      </form>
+
+      <div class="divider">
+        <span>atau</span>
+      </div>
+
+      <p class="signup-text">Tidak punya akun? <a href="register.html">Buat satu</a></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const HOMEPAGE_URL = '../index.html';
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function isLoggedIn() {
+      return localStorage.getItem('kentakaiken_logged_in') === 'true';
+    }
+
+    function getLoggedInUser() {
+      return localStorage.getItem('kentakaiken_username') || '';
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('kentakaiken_users') || '[]');
+    }
+
+    function showLoggedInState() {
+      document.getElementById('loggedOutView').classList.add('hidden');
+      document.getElementById('loggedInView').classList.remove('hidden');
+      document.getElementById('loggedInUser').textContent = getLoggedInUser();
+      document.getElementById('goHomeLink').href = HOMEPAGE_URL;
+    }
+
+    function showLoggedOutState() {
+      document.getElementById('loggedInView').classList.add('hidden');
+      document.getElementById('loggedOutView').classList.remove('hidden');
+    }
+
+    if (isLoggedIn()) {
+      showLoggedInState();
+    } else {
+      showLoggedOutState();
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      document.getElementById('loginError').style.display = 'none';
+
+      const users = getUsers();
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (!user) {
+        document.getElementById('loginError').style.display = 'block';
+        return;
+      }
+
+      localStorage.setItem('kentakaiken_logged_in', 'true');
+      localStorage.setItem('kentakaiken_username', user.username);
+      localStorage.setItem('kentakaiken_email', user.email);
+
+      showToast('Berhasil masuk! Mengalihkan...');
+
+      setTimeout(function() {
+        window.location.href = HOMEPAGE_URL;
+      }, 1000);
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      localStorage.removeItem('kentakaiken_logged_in');
+      localStorage.removeItem('kentakaiken_username');
+      localStorage.removeItem('kentakaiken_email');
+      showToast('Berhasil keluar');
+      showLoggedOutState();
+    });
+  </script>
+</body>
+</html>
