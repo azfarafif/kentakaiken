@@ -1,9 +1,9 @@
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+    const username = document.getElementById("username-reg").value.trim();
+    const email = document.getElementById("email-reg").value.trim();
+    const password = document.getElementById("password-reg").value.trim();
 
     const res = await fetch("https://herisusanta.my.id/javalogin/api/auth.php", {
         method: "POST",
